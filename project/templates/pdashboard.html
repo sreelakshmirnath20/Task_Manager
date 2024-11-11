@@ -15,5 +15,28 @@
                 </tr>
                 
             </thead>
+            <tbody>
+              {% for i in projects %}
+              <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.title}}</td>
+                <td>{{i.description}}</td>
+                <td>{{i.language}}</td>
+                <td>
+                  <img src="{{i.image.url}}" height="200px" alt="project_iamges">
+                </td>
+                <td>
+                  <a href="" class="btn">
+                    <i class="fa-solid fa-pen-to-square" style="color:aquamarine;"></i></a>
+                    <a href="{% url 'delpro' i.id %}" class="btn">
+                      <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                    </a>
+                  
+                </td>
+
+
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
 {% endblock header %}
