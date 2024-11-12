@@ -25,4 +25,5 @@ urlpatterns = [
     path('',LandingView.as_view()),
     path('task/',include('task.urls')),
     path('project/',include('project.urls')),
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

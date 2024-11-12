@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -34,8 +36,9 @@
         <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
             <div class="w-75 border shadow p-5">
                 <h1 class="text-center text-warning display-3">Task manager</h1>
+                <img src="{% static 'dash.png'%}" width="50%" alt="">
                 <div class="d-grid">
-                    <a href="{% url 'dashboard'%}" class="btn btn-success">Go To Dashboard</a>
+                    <a href="{% url 'dashboard'%}" class="btn btn-success">Go To Tsak Dashboard</a>
                     <a href="{% url 'pdash'%}" class="btn btn-warning">Go To Project Dashboard</a>
                 </div>
 

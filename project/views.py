@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.views import View
 from .forms import ProjectModelForm
 from .models import Projects
+from django.contrib import messages
 
 # Create your views here.
 
@@ -18,8 +19,10 @@ class AddProjectView(View):
         formdata=ProjectModelForm(data=request.POST,files=request.FILES)
         if formdata.is_valid():
             formdata.save()
+            messages.success(request,"Project Added Successfully !!")
+            messages.error(request,"Checking")
             return redirect('pdash')
-        return render(request,"pdashboard.html",{'form':formdata})
+        return render(request,"addproject.html",{'form':formdata})
 
 class DeleteTaskView(View):
     def get(self,request,*args,**kwargs):
@@ -29,12 +32,22 @@ class DeleteTaskView(View):
         project.delete()
         return redirect('pdash')
     
-class EditProjectView():
+class EditProjectView(View):
     def get(self,request,*args,**kwargs):
         pid=kwargs.get('pid')
+        print('pid')
         project=Projects.objects.get(id=pid)
         form=ProjectModelForm(instance=project)
         return render(request,"editpro.html",{"form":form})
+    def post(self,request,**kwargs):
+        pid=kwargs.get('pid')
+        project=Projects.objects.get(id=pid)
+        formdata=ProjectModelForm(data=request.POST,files=request.FILES,instance=project)
+        if formdata.is_valid():
+            formdata.save()
+            messages.success(request,"Project updated Successfully !!")
+            return redirect('pdash')
+        return render(request,"editpro.html",{"form":formdata})
 
 
 
