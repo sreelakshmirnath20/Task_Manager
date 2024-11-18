@@ -1,10 +1,38 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from .forms import Taskform
+from .forms import Taskform,Logform,Regform
 from django.http import HttpResponse
 from .models import Task
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate
 # Create your views here.
+
+class LoginView(View):
+    def get(self,request):
+        form=Logform()
+        return render(request,"login.html",{"form":form})
+    def post(self,request):
+        formdata=Logform(data=request.POST)
+        if formdata.is_valid():
+            uname=formdata.cleaned_data.get('username')
+            pswd=formdata.cleaned_data.get('password')
+            user=authenticate(request,username=uname,password=pswd)
+            if user:
+                return redirect('landing')
+            else:
+                return redirect('log')
+        return render(request,"login.html",{"form":formdata})
+
+class RegView(View):
+    def get(self,request):
+        form=Regform()
+        return render(request,"reg.html",{"form":form})
+    def post(self,request):
+        formdata=Regform(data=request.POST)
+        if formdata.is_valid():
+            formdata.save()
+            return redirect('log')
+        return render(request,"reg.html",{"form":formdata})
 
 # def landingView(reqest):
 #     return render(reqest,"landing.html")

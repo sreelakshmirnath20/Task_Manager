@@ -7,6 +7,8 @@ class ProjectModelForm(forms.ModelForm):
         model=Projects
         fields="__all__"
         widgets={
-            "title":forms.TextInput(attrs={"class":"form-control","palceholder":"Enter Title"}),
-            "description":forms.Textarea(attrs={"class":"form-control","placeholder":"Enter description"})
+        "title":forms.TextInput(attrs={"class":"form-control","placeholder":"Enter Title"}),
+        "description":forms.Textarea(attrs={"class":"form-control","placeholder":"Enter description"}),
+        "language":forms.TextInput(attrs={"class":"form-control"}),
+        # "image":forms.FileInput(attrs={"class":"form-control"})
         }
